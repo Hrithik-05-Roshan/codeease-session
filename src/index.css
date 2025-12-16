@@ -34,6 +34,28 @@ body {
 	overflow-x: hidden;
 }
 
+/* Typography scale */
+:root {
+	--fs-hero: clamp(2.4rem, 4.6vw, 4.8rem);
+	--fs-lg: clamp(1.1rem, 1.8vw, 1.4rem);
+	--fs-md: clamp(0.98rem, 1.2vw, 1.05rem);
+	--max-width: 1180px;
+}
+
+/* layout utilities */
+.container-max { max-width: var(--max-width); margin: 0 auto; padding: 0 1.25rem; }
+
+/* Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	.bg-animated, .satin-anim, .shimmer, .game-card, .game-card .sheen { animation: none !important; transition: none !important; }
+}
+
+/* improved focus ring for keyboard users */
+button:focus { box-shadow: 0 0 0 4px rgba(0,179,166,0.12), 0 10px 30px rgba(0,0,0,0.55); }
+
+/* small helper for accessible hidden text */
+.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
+
 /* subtle animated gradient in background */
 .bg-animated {
 	position: fixed;
