@@ -1,0 +1,104 @@
+/* Global design system for premium dark + cyberpunk theme
+	 - No structural changes. Only visuals, animations, micro-interactions.
+	 - Uses CSS variables for quick theming. */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@400;700&display=swap');
+
+:root {
+	/* Colors */
+	--bg-0: #04050a; /* almost black */
+	--bg-1: #0b1117; /* deep charcoal */
+	--glass: rgba(255,255,255,0.03);
+	--glass-2: rgba(255,255,255,0.02);
+	--accent-1: #00b3a6; /* teal */
+	--accent-2: #ff3b8c; /* magenta */
+	--accent-3: #ffb86b; /* amber */
+	--muted: rgba(255,255,255,0.6);
+	--card-shadow: 0 18px 40px rgba(2,6,23,0.7);
+
+	/* Motion */
+	--timing-fast: 180ms;
+	--timing-base: 360ms;
+	--timing-loose: 700ms;
+}
+
+html,body,#root { height:100%; }
+body {
+	margin: 0;
+	font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+	background: radial-gradient(1200px 600px at 10% 10%, rgba(0,179,166,0.06), transparent),
+							linear-gradient(180deg, var(--bg-0), var(--bg-1));
+	color: #e6f7ff;
+	-webkit-font-smoothing:antialiased;
+	-moz-osx-font-smoothing:grayscale;
+	overflow-x: hidden;
+}
+
+/* subtle animated gradient in background */
+.bg-animated {
+	position: fixed;
+	inset: 0;
+	z-index: -2;
+	pointer-events: none;
+	background: radial-gradient(600px 300px at 80% 20%, rgba(0,179,166,0.06), transparent),
+							radial-gradient(500px 260px at 20% 80%, rgba(255,59,140,0.05), transparent);
+	animation: bgShift 18s linear infinite alternate;
+}
+@keyframes bgShift {
+	0% { transform: translate3d(0,0,0) scale(1); }
+	100% { transform: translate3d(-3%,1.5%,0) scale(1.02); }
+}
+
+/* subtle satin panning utility for hero sections */
+.satin-anim {
+	animation: satinPan 18s ease-in-out infinite alternate;
+	transform-origin: center;
+}
+@keyframes satinPan { 0% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(-2%,1%,0) scale(1.01); } 100% { transform: translate3d(2%,-1%,0) scale(1); } }
+
+/* Floating decorative bubbles (purely visual) */
+.ui-bubble {
+	position: absolute;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.85), rgba(255,255,255,0.12));
+	box-shadow: 0 8px 30px rgba(0,179,166,0.06), inset 0 -1px 0 rgba(255,255,255,0.04);
+	filter: blur(0.2px);
+	opacity: 0.95;
+	transform: translateZ(0);
+	mix-blend-mode: screen;
+}
+
+/* Focus and accessibility */
+button:focus, a:focus { outline: 2px solid rgba(99,102,241,0.18); outline-offset: 4px; border-radius: 8px; }
+
+/* Micro interactions for buttons used across pages */
+.btn-prim {
+	--scale-down: 0.96;
+	display:inline-flex; align-items:center; gap:8px; justify-content:center;
+	padding: .75rem 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.04);
+	background: linear-gradient(180deg, rgba(0,179,166,0.16), rgba(255,59,140,0.06));
+	color: white; font-weight:700; cursor:pointer; transition: transform var(--timing-fast) cubic-bezier(.2,.9,.2,1), box-shadow var(--timing-fast);
+	box-shadow: 0 8px 30px rgba(0,179,166,0.06), 0 2px 8px rgba(0,0,0,0.6);
+}
+.btn-prim:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 22px 48px rgba(0,179,166,0.12), 0 6px 12px rgba(0,0,0,0.6); }
+.btn-prim:active { transform: translateY(-2px) scale(var(--scale-down)); box-shadow: 0 10px 30px rgba(0,179,166,0.08); }
+
+/* Shimmer utility (can be applied to labels) */
+.shimmer {
+	position: relative; overflow: hidden;
+}
+.shimmer::after {
+	content: '';
+	position: absolute; inset: 0; left: -120%;
+	background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 50%, transparent 100%);
+	transform: skewX(-18deg);
+	animation: shimmer 2.6s linear infinite;
+	pointer-events: none;
+}
+@keyframes shimmer { to { left: 220%; } }
+
+/* small utility for soft blur glass */
+.glass-soft { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); backdrop-filter: blur(10px); }
+
